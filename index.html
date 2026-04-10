@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Namma Nildana — Bus Stop Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f5f5f5; }
+
+    .header {
+      background: linear-gradient(135deg, #1a5276, #2e86c1);
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .header h1 { font-size: 1.4rem; font-weight: 600; }
+    .header .subtitle { font-size: 0.85rem; opacity: 0.85; margin-top: 2px; }
+    .header .stats {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+      font-size: 0.85rem;
+    }
+    .header .stat-num { font-size: 1.3rem; font-weight: 700; }
+
+    .container { display: flex; height: calc(100vh - 68px); }
+
+    /* Sidebar — list of all places */
+    .sidebar {
+      width: 320px;
+      min-width: 320px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #eee;
+      background: #fafafa;
+    }
+    .sidebar-header input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .sidebar-header input:focus { border-color: #2e86c1; }
+    .place-list {
+      flex: 1;
+      overflow-y: auto;
+      list-style: none;
+    }
+    .place-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .place-item:hover { background: #e8f4fd; }
+    .place-item.active { background: #d4edfc; border-left: 3px solid #2e86c1; }
+    .place-item.no-coords { opacity: 0.55; }
+    .place-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #2e86c1;
+      flex-shrink: 0;
+    }
+    .place-dot.no-bus-stop { background: #e74c3c; }
+    .place-dot.no-coords { background: #aaa; }
+    .place-name { font-size: 0.88rem; line-height: 1.3; }
+    .place-tag {
+      font-size: 0.65rem;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: #eee;
+      color: #666;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .place-tag.missing { background: #fce4e4; color: #c0392b; }
+
+    /* Map area */
+    .main { flex: 1; display: flex; flex-direction: column; position: relative; }
+    #map { flex: 1; }
+
+    /* Description panel */
+    .desc-panel {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 380px;
+      max-height: calc(100% - 32px);
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      z-index: 1000;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+    }
+    .desc-panel.visible { display: flex; }
+    .desc-header {
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #1a5276, #2e86c1);
+      color: #fff;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .desc-header h2 { font-size: 1.05rem; font-weight: 600; flex: 1; line-height: 1.3; }
+    .desc-close {
+      background: none; border: none; color: #fff; font-size: 1.3rem;
+      cursor: pointer; opacity: 0.8; padding: 0; line-height: 1;
+    }
+    .desc-close:hover { opacity: 1; }
+    .desc-coords {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+    .desc-body {
+      padding: 16px 20px;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #333;
+    }
+    .desc-body .section-title {
+      font-weight: 700;
+      color: #1a5276;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+    .desc-body .section-title:first-child { margin-top: 0; }
+    .desc-body .field { display: flex; gap: 6px; padding: 2px 0; }
+    .desc-body .field-label { font-weight: 600; color: #555; min-width: 140px; }
+    .desc-body .field-value { color: #333; }
+    .desc-body .status-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .desc-body .status-badge.existing { background: #d4edda; color: #155724; }
+    .desc-body .status-badge.none { background: #f8d7da; color: #721c24; }
+
+    /* Legend */
+    .legend {
+      position: absolute;
+      bottom: 24px;
+      left: 16px;
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+      .sidebar { width: 100%; min-width: unset; max-height: 200px; }
+      .desc-panel { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Namma Nildana</h1>
+    <div class="subtitle">Bus Stop Accessibility Survey — Sarjapur Road Corridor</div>
+  </div>
+  <div class="stats">
+    <div><div class="stat-num" id="stat-total">–</div> Total Stops</div>
+    <div><div class="stat-num" id="stat-mapped">–</div> Mapped</div>
+    <div><div class="stat-num" id="stat-existing">–</div> Existing</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <input type="text" id="search" placeholder="Search bus stops…" />
+    </div>
+    <ul class="place-list" id="placeList"></ul>
+  </div>
+
+  <div class="main">
+    <div id="map"></div>
+
+    <div class="desc-panel" id="descPanel">
+      <div class="desc-header">
+        <div>
+          <h2 id="descTitle"></h2>
+          <div class="desc-coords" id="descCoords"></div>
+        </div>
+        <button class="desc-close" id="descClose">&times;</button>
+      </div>
+      <div class="desc-body" id="descBody"></div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#2e86c1"></div> Existing bus stop</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> No existing bus stop</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#aaa"></div> No coordinates</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(async function() {
+  const res = await fetch('places.json');
+  const places = await res.json();
+
+  // Stats
+  const mapped = places.filter(p => p.latitude != null);
+  const existing = places.filter(p => !p.description.toLowerCase().startsWith('no existing'));
+  document.getElementById('stat-total').textContent = places.length;
+  document.getElementById('stat-mapped').textContent = mapped.length;
+  document.getElementById('stat-existing').textContent = existing.length;
+
+  // Map
+  const map = L.map('map').setView([12.895, 77.74], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Custom markers
+  function makeIcon(color) {
+    return L.divIcon({
+      className: '',
+      html: '<div style="width:16px;height:16px;border-radius:50%;background:' + color +
+            ';border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.3)"></div>',
+      iconSize: [16, 16],
+      iconAnchor: [8, 8]
+    });
+  }
+  const iconExisting = makeIcon('#2e86c1');
+  const iconNone = makeIcon('#e74c3c');
+
+  const markers = [];
+
+  mapped.forEach(place => {
+    const isExisting = !place.description.toLowerCase().startsWith('no existing');
+    const marker = L.marker([place.latitude, place.longitude], {
+      icon: isExisting ? iconExisting : iconNone
+    }).addTo(map);
+
+    marker.on('click', () => showDescription(place));
+    markers.push({ marker, place });
+  });
+
+  // Fit bounds
+  if (mapped.length > 0) {
+    const bounds = L.latLngBounds(mapped.map(p => [p.latitude, p.longitude]));
+    map.fitBounds(bounds, { padding: [40, 40] });
+  }
+
+  // Sidebar list
+  const listEl = document.getElementById('placeList');
+
+  function renderList(filter) {
+    listEl.innerHTML = '';
+    const q = (filter || '').toLowerCase();
+    places.forEach((place, idx) => {
+      if (q && !place.place.toLowerCase().includes(q) && !place.description.toLowerCase().includes(q)) return;
+
+      const li = document.createElement('li');
+      li.className = 'place-item' + (place.latitude == null ? ' no-coords' : '');
+      li.dataset.idx = idx;
+
+      const isExisting = !place.description.toLowerCase().startsWith('no existing');
+      const hasCoords = place.latitude != null;
+
+      let dotClass = 'place-dot';
+      if (!hasCoords) dotClass += ' no-coords';
+      else if (!isExisting) dotClass += ' no-bus-stop';
+
+      li.innerHTML =
+        '<div class="' + dotClass + '"></div>' +
+        '<span class="place-name">' + escapeHtml(place.place) + '</span>' +
+        (!hasCoords ? '<span class="place-tag missing">no coords</span>' : '');
+
+      li.addEventListener('click', () => {
+        document.querySelectorAll('.place-item.active').forEach(el => el.classList.remove('active'));
+        li.classList.add('active');
+        if (hasCoords) {
+          map.setView([place.latitude, place.longitude], 16, { animate: true });
+        }
+        showDescription(place);
+      });
+
+      listEl.appendChild(li);
+    });
+  }
+
+  renderList('');
+  document.getElementById('search').addEventListener('input', e => renderList(e.target.value));
+
+  // Description panel
+  const panel = document.getElementById('descPanel');
+  document.getElementById('descClose').addEventListener('click', () => panel.classList.remove('visible'));
+
+  function showDescription(place) {
+    document.getElementById('descTitle').textContent = place.place;
+    document.getElementById('descCoords').textContent =
+      place.latitude != null
+        ? place.latitude.toFixed(6) + ', ' + place.longitude.toFixed(6)
+        : 'Coordinates not available';
+
+    document.getElementById('descBody').innerHTML = parseDescription(place.description);
+    panel.classList.add('visible');
+
+    // Highlight sidebar
+    document.querySelectorAll('.place-item.active').forEach(el => el.classList.remove('active'));
+    const items = document.querySelectorAll('.place-item');
+    items.forEach(li => {
+      const idx = parseInt(li.dataset.idx);
+      if (places[idx] === place) {
+        li.classList.add('active');
+        li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
+  }
+
+  function parseDescription(desc) {
+    if (!desc) return '<em>No description available</em>';
+
+    const isExisting = !desc.toLowerCase().startsWith('no existing');
+
+    if (desc.toLowerCase().trim() === 'no existing bus stop') {
+      return '<span class="status-badge none">No Existing Bus Stop</span>';
+    }
+
+    let html = '';
+
+    // Status badge
+    if (isExisting) {
+      html += '<span class="status-badge existing">Existing Bus Stop</span>';
+    }
+
+    // Parse structured fields
+    const lines = desc.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    let currentSection = '';
+
+    for (const line of lines) {
+      if (line.toLowerCase().startsWith('there is an existing')) continue; // already shown as badge
+
+      const lower = line.toLowerCase();
+
+      if (lower === 'facilities:' || lower === 'accessibility:') {
+        currentSection = line.replace(':', '');
+        html += '<div class="section-title">' + escapeHtml(currentSection) + '</div>';
+        continue;
+      }
+
+      if (lower.startsWith('cleanliness:')) {
+        html += '<div class="section-title">Cleanliness</div>';
+        html += '<div>' + escapeHtml(line.replace(/^cleanliness:\s*/i, '')) + '</div>';
+        continue;
+      }
+
+      // Key: Value fields
+      const colonIdx = line.indexOf(':');
+      if (colonIdx > 0 && colonIdx < 40) {
+        const label = line.substring(0, colonIdx).trim();
+        const value = line.substring(colonIdx + 1).trim();
+        html += '<div class="field"><span class="field-label">' + escapeHtml(label) +
+                '</span><span class="field-value">' + escapeHtml(value || '—') + '</span></div>';
+      } else if (line.length > 0) {
+        html += '<div>' + escapeHtml(line) + '</div>';
+      }
+    }
+
+    return html || '<em>No description available</em>';
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+})();
+</script>
+</body>
+</html>
