@@ -40,6 +40,20 @@ To use external JSON data instead of the embedded dataset:
 2. Load it via `fetch('places.json')` in the app script.
 3. Keep the same object format so the existing rendering logic continues to work.
 
+## Regenerating CSV
+
+If you update `places.json`, regenerate `places.csv` with the utility script:
+
+```bash
+python generate_csv.py
+```
+
+You can also specify custom paths:
+
+```bash
+python generate_csv.py places.json places.csv
+```
+
 ## Editing pages
 
 - Edit `index.html` to update the landing/about content, project overview, purpose, and instructions.
