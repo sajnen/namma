@@ -8,7 +8,8 @@ This project shows a list of surveyed bus stop locations and displays them on an
 
 ## Files
 
-- `index.html` — Main application file. Contains UI markup, CSS styling, and JavaScript logic.
+- `index.html` — Main landing/about page for the project. Contains editable project description, purpose, and usage notes.
+- `map.html` — Map application file. Contains the bus stop map UI, marker rendering, search, and popup details.
 - `places.json` — Survey dataset containing bus stop names, GPS coordinates, and description metadata.
 
 ## Features
@@ -21,9 +22,10 @@ This project shows a list of surveyed bus stop locations and displays them on an
 
 ## How to run
 
-1. Open `index.html` in a modern browser.
-2. The app loads the map and places data automatically.
-3. Click any list item or map marker to view the stop details.
+1. Open `index.html` in a modern browser to view the project overview.
+2. Click the `View Map` button on the landing page to open `map.html`.
+3. The map loads the bus stop data and displays markers automatically.
+4. Click any list item or map marker to view the stop details.
 
 ## Notes
 
@@ -37,6 +39,11 @@ To use external JSON data instead of the embedded dataset:
 1. Move the dataset into `places.json`.
 2. Load it via `fetch('places.json')` in the app script.
 3. Keep the same object format so the existing rendering logic continues to work.
+
+## Editing pages
+
+- Edit `index.html` to update the landing/about content, project overview, purpose, and instructions.
+- Edit `map.html` to change map UI behavior, marker rendering, styles, or data handling.
 
 ## Dependencies
 
