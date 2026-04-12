@@ -37,7 +37,7 @@
       <label for="mapStyle">Map style</label>
       <select id="mapStyle">
         <option value="osm">OpenStreetMap</option>
-        <option value="carto">CartoDB Positron</option>
+        <option value="carto" selected="selected">CartoDB Positron</option>
       </select>
     </div>
     <button id="aboutBtn" class="about-button">About Project</button>
@@ -49,7 +49,7 @@
   <div class="container">
   <div class="sidebar">
     <div class="sidebar-header">
-      <input type="text" id="search" placeholder="Search bus stopsâ€¦" />
+      <input type="text" id="search" placeholder="Search Bus Stop" />
     </div>
     <ul class="place-list" id="placeList"></ul>
   </div>
@@ -69,8 +69,8 @@
     </div>
 
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#2e86c1"></div> Existing bus stop</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> No existing bus stop</div>
+      <div class="legend-item"><img src="green_marker.png" alt="Existing bus stop" style="width:22px;height:22px;"> Existing bus stop</div>
+      <div class="legend-item"><img src="red_marker.png" alt="No existing bus stop" style="width:22px;height:22px;"> No existing bus stop</div>
       <div class="legend-item"><div class="legend-dot" style="background:#aaa"></div> No coordinates</div>
     </div>
   </div>

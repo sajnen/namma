@@ -68,16 +68,17 @@ async function initApp() {
     });
 
     // Custom markers
-    function makeIcon(color) {
-      return L.divIcon({
-        className: '',
-        html: '<div style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:' + color + ';color:#fff;font-size:14px;line-height:1;box-shadow:0 1px 6px rgba(0,0,0,0.25)">🚍</div>',
-        iconSize: [22, 22],
-        iconAnchor: [11, 22]
+    function makeIcon(isExisting) {
+      const iconUrl = isExisting ? 'green_marker.png' : 'red_marker.png';
+      return L.icon({
+        iconUrl: iconUrl,
+        iconSize: [15, 15],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, -11]
       });
     }
-    const iconExisting = makeIcon('#2e86c1');
-    const iconNone = makeIcon('#e74c3c');
+    const iconExisting = makeIcon(true);
+    const iconNone = makeIcon(false);
 
     const markers = [];
 
@@ -125,8 +126,16 @@ async function initApp() {
         if (!hasCoords) dotClass += ' no-coords';
         else if (!isExisting) dotClass += ' no-bus-stop';
 
+        let dotHtml = '';
+        if (!hasCoords) {
+          dotHtml = '<div class="' + dotClass + '"></div>';
+        } else {
+          const imgSrc = isExisting ? 'green_marker.png' : 'red_marker.png';
+          dotHtml = '<img src="' + imgSrc + '" style="width:10px;height:10px;" alt="">';
+        }
+
         li.innerHTML =
-          '<div class="' + dotClass + '"></div>' +
+          dotHtml +
           '<span class="place-name">' + escapeHtml(place.place) + '</span>' +
           (!hasCoords ? '<span class="place-tag missing">no coords</span>' : '');
 
