@@ -11,6 +11,8 @@
     <!-- Left Sidebar -->
     <aside class="sidebar sidebar-left">
       <div class="sidebar-content">
+        <button class="sidebar-close" aria-label="Close sidebar">&times;</button>
+        <a class="sidebar-home" href="index.html">Home</a>
         <h3>Profile</h3>
         <p><strong>Project:</strong> Namma Nildana</p>
         <p><strong>Location:</strong> Sarjapur Road</p>
@@ -35,12 +37,13 @@
           <a href="#overview">Overview</a>
           <a href="#contact">Contact</a>
         </nav>
+        <button id="sidebarToggle" class="sidebar-toggle" aria-expanded="true" aria-label="Toggle sidebars">☰</button>
       </header>
 
       <div class="content-wrapper">
         <!-- Logo Section -->
         <section class="logo-section">
-          <img src="bus_stop 2.png" alt="Namma Nildana Logo" class="project-logo" />
+          <img src="bus_stop 3.png" alt="Namma Nildana Logo" class="project-logo" />
         </section>
 
         <!-- Project Overview -->
@@ -90,12 +93,46 @@
           <p>Have feedback about a bus stop? Want to contribute to the survey? We'd love to hear from you.</p>
           <p>For questions or suggestions, please reach out through our contact channels.</p>
         </section>
+
+        <!-- How to Use -->
+        <section class="content-section">
+          <h2>How to Use This Site</h2>
+          <ol>
+            <li><strong>Explore the Map:</strong> Click the Map link to view all surveyed bus stops on an interactive map.</li>
+            <li><strong>Search Locations:</strong> Use the sidebar search to filter stops by name or accessibility features.</li>
+            <li><strong>View Details:</strong> Click any marker or list item to see detailed information about that stop.</li>
+            <li><strong>Download Data:</strong> Access the raw survey data in CSV or JSON format for your own analysis.</li>
+          </ol>
+        </section>
+
+        <!-- Data Source -->
+        <section id="data" class="content-section">
+          <h2>Data & Resources</h2>
+          <p>Our survey data is publicly available for download:</p>
+          <ul>
+            <li><a href="places.csv" download>Download as CSV</a></li>
+            <li><a href="places.json" download>Download as JSON</a></li>
+          </ul>
+        </section>
+
+        <!-- Data source -->
+        <section id="data-source">
+          <h2>Data source</h2>
+          <p>The survey data is available in <code>places.json</code> and as a downloadable CSV file: <a href="places.csv" download>Download CSV</a>.</p>
+        </section>
+
+        <!-- Contact / notes -->
+        <section id="contact-notes">
+          <h2>Contact / notes</h2>
+          <p>Placeholder space for project notes, contact information, or further survey details. Update this section when you have team contacts or next-step items.</p>
+        </section>
       </div>
     </main>
 
     <!-- Right Sidebar -->
     <aside class="sidebar sidebar-right">
       <div class="sidebar-content">
+        <button class="sidebar-close" aria-label="Close sidebar">&times;</button>
         <h3>Details</h3>
         <p><strong>Survey Status:</strong> Ongoing</p>
         <p><strong>Last Updated:</strong> 2026</p>
@@ -127,30 +164,45 @@
           }
         });
       });
-    });
-  </script>
-</body>
-</html>
-        </ul>
-      </section>
-      <section id="data-source">
-        <h2>Data source</h2>
-        <p>The survey data is available in <code>places.json</code> and as a downloadable CSV file: <a href="places.csv" download>Download CSV</a>.</p>
-      </section>
-      <section id="contact-notes">
-        <h2>Contact / notes</h2>
-        <p>Placeholder space for project notes, contact information, or further survey details. Update this section when you have team contacts or next-step items.</p>
-      </section>
-    </div>
-  </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const toggle = document.getElementById('navToggle');
-      const nav = document.getElementById('topNav');
-      if (toggle && nav) {
-        toggle.addEventListener('click', function() {
-          const open = nav.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', open);
+
+      // Sidebar toggle
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebars = document.querySelectorAll('.sidebar');
+      if (sidebarToggle && sidebars.length > 0) {
+        const closeSidebars = () => {
+          sidebars.forEach(sidebar => sidebar.classList.remove('visible'));
+          sidebarToggle.setAttribute('aria-expanded', false);
+          sidebarToggle.textContent = '☰';
+          document.removeEventListener('click', handleSidebarOutsideClick);
+        };
+        const handleSidebarOutsideClick = (e) => {
+          if (!Array.from(sidebars).some(sidebar => sidebar.contains(e.target)) && !sidebarToggle.contains(e.target)) {
+            closeSidebars();
+          }
+        };
+        sidebarToggle.addEventListener('click', function() {
+          const visible = sidebars[0].classList.toggle('visible');
+          sidebars.forEach(sidebar => sidebar.classList.toggle('visible', visible));
+          sidebarToggle.setAttribute('aria-expanded', visible);
+          sidebarToggle.textContent = visible ? '×' : '☰';
+          if (visible) {
+            setTimeout(() => document.addEventListener('click', handleSidebarOutsideClick), 0);
+          } else {
+            document.removeEventListener('click', handleSidebarOutsideClick);
+          }
+        });
+      }
+
+      // Sidebar close
+      const sidebarCloseButtons = document.querySelectorAll('.sidebar-close');
+      if (sidebarCloseButtons.length > 0 && sidebars.length > 0) {
+        sidebarCloseButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+            sidebars.forEach(sidebar => sidebar.classList.remove('visible'));
+            sidebarToggle.setAttribute('aria-expanded', false);
+            sidebarToggle.textContent = '☰';
+            document.removeEventListener('click', handleSidebarOutsideClick);
+          });
         });
       }
     });

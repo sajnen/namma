@@ -20,7 +20,7 @@
     <span></span>
   </button>
   <nav id="topNav" class="top-nav">
-    <a href="index.html">About</a>
+    <button class="nav-close">&times;</button>    <a href="map.html">Home</a>    <a href="index.html">About</a>
     <a href="#map" class="active">Map</a>
     <a href="index.html#data-source">Data source</a>
     <a href="index.html#contact-notes">Contact / notes</a>
@@ -40,6 +40,7 @@
       </select>
     </div>
     <button id="aboutBtn" class="about-button">About Project</button>
+    <button id="sidebarToggle" class="sidebar-toggle" aria-expanded="true" aria-label="Toggle sidebar">☰</button>
     <div class="stats">
       <div><div class="stat-num" id="stat-total">â€“</div> Total Stops</div>
     </div>
@@ -49,6 +50,7 @@
   <div class="sidebar">
     <div class="sidebar-header">
       <input type="text" id="search" placeholder="Search Bus Stop" />
+      <button class="sidebar-close" aria-label="Close sidebar">&times;</button>
     </div>
     <ul class="place-list" id="placeList"></ul>
   </div>
@@ -81,9 +83,72 @@
     const toggle = document.getElementById('navToggle');
     const nav = document.getElementById('topNav');
     if (toggle && nav) {
+      const closeNav = () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        toggle.textContent = '☰';
+        document.removeEventListener('click', handleOutsideClick);
+      };
+      const handleOutsideClick = (e) => {
+        if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+          closeNav();
+        }
+      };
       toggle.addEventListener('click', function() {
         const open = nav.classList.toggle('open');
         toggle.setAttribute('aria-expanded', open);
+        toggle.textContent = open ? '×' : '☰';
+        if (open) {
+          setTimeout(() => document.addEventListener('click', handleOutsideClick), 0);
+        } else {
+          document.removeEventListener('click', handleOutsideClick);
+        }
+      });
+    }
+
+    const navClose = document.querySelector('.nav-close');
+    if (navClose && nav) {
+      navClose.addEventListener('click', function() {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+        toggle.textContent = '☰';
+        document.removeEventListener('click', handleOutsideClick);
+      });
+    }
+
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebarToggle && sidebar) {
+      const closeSidebar = () => {
+        sidebar.classList.remove('visible');
+        sidebarToggle.setAttribute('aria-expanded', false);
+        sidebarToggle.textContent = '☰';
+        document.removeEventListener('click', handleSidebarOutsideClick);
+      };
+      const handleSidebarOutsideClick = (e) => {
+        if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+          closeSidebar();
+        }
+      };
+      sidebarToggle.addEventListener('click', function() {
+        const visible = sidebar.classList.toggle('visible');
+        sidebarToggle.setAttribute('aria-expanded', visible);
+        sidebarToggle.textContent = visible ? '×' : '☰';
+        if (visible) {
+          setTimeout(() => document.addEventListener('click', handleSidebarOutsideClick), 0);
+        } else {
+          document.removeEventListener('click', handleSidebarOutsideClick);
+        }
+      });
+    }
+
+    const sidebarClose = document.querySelector('.sidebar-close');
+    if (sidebarClose && sidebar) {
+      sidebarClose.addEventListener('click', function() {
+        sidebar.classList.remove('visible');
+        sidebarToggle.setAttribute('aria-expanded', false);
+        sidebarToggle.textContent = '☰';
+        document.removeEventListener('click', handleSidebarOutsideClick);
       });
     }
   });
