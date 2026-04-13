@@ -29,14 +29,6 @@ async function initApp() {
     const map = L.map('map').setView([12.895, 77.74], 13);
 
     const tileOptions = {
-      osm: {
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution: '&copy; OpenStreetMap contributors'
-      },
-      'osm-humanitarian': {
-        url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-        attribution: '&copy; OpenStreetMap contributors, Humanitarian'
-      },
       carto: {
         url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
         attribution: '&copy; OpenStreetMap contributors &amp; CARTO'
@@ -189,37 +181,37 @@ function showDescription(place) {
 function renderDescription(desc) {
   if (!desc || desc.status === 'unknown') return '<em>No description available</em>';
 
+  const formatLabel = key => key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+  let html = '';
   if (desc.status === 'no existing bus stop') {
-    return '<span class="status-badge none">No Existing Bus Stop</span>';
+    html += '<span class="status-badge none">No Existing Bus Stop</span>';
+  } else {
+    html += '<span class="status-badge existing">Existing Bus Stop</span>';
   }
 
-  let html = '<span class="status-badge existing">Existing Bus Stop</span>';
-
-  // Facilities
+  html += '<div class="section-title">Facilities</div>';
   if (Object.keys(desc.facilities).length > 0) {
-    html += '<div class="section-title">Facilities</div>';
     for (const [key, val] of Object.entries(desc.facilities)) {
-      const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-      html += '<div class="field"><span class="field-label">' + escapeHtml(label) +
-              '</span><span class="field-value">' + escapeHtml(val) + '</span></div>';
+      html += '<div class="field"><span class="field-label">' + escapeHtml(formatLabel(key)) +
+              ':</span><span class="field-value">' + escapeHtml(val || 'Not recorded') + '</span></div>';
     }
+  } else {
+    html += '<div class="field"><span class="field-value">No facility information recorded.</span></div>';
   }
 
-  // Accessibility
+  html += '<div class="section-title">Accessibility</div>';
   if (Object.keys(desc.accessibility).length > 0) {
-    html += '<div class="section-title">Accessibility</div>';
     for (const [key, val] of Object.entries(desc.accessibility)) {
-      const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-      html += '<div class="field"><span class="field-label">' + escapeHtml(label) +
-              '</span><span class="field-value">' + escapeHtml(val) + '</span></div>';
+      html += '<div class="field"><span class="field-label">' + escapeHtml(formatLabel(key)) +
+              ':</span><span class="field-value">' + escapeHtml(val || 'Not recorded') + '</span></div>';
     }
+  } else {
+    html += '<div class="field"><span class="field-value">No accessibility details recorded.</span></div>';
   }
 
-  // Cleanliness
-  if (desc.cleanliness) {
-    html += '<div class="section-title">Cleanliness</div>';
-    html += '<div>' + escapeHtml(desc.cleanliness) + '</div>';
-  }
+  html += '<div class="section-title">Cleanliness</div>';
+  html += '<div class="field"><span class="field-value">' + escapeHtml(desc.cleanliness || 'No cleanliness notes recorded.') + '</span></div>';
 
   return html;
 }

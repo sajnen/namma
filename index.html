@@ -3,51 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Namma Nildana</title>
+  <title>Namma Nildana</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="site-title">
-      <h1>Namma Nildana</h1>
-      <p class="site-tagline">Bus stop accessibility survey for the Sarjapur Road corridor</p>
-    </div>
-    <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav id="topNav" class="top-nav">
-      <a href="index.html" class="active">About</a>
-      <a href="map.html">Map</a>
-      <a href="#data-source">Data source</a>
-      <a href="#contact-notes">Contact / notes</a>
-      <a href="places.csv" download class="download-link">Download CSV</a>
-    </nav>
-  </header>
-  <div class="page">
-    <div class="hero" id="about">
-      <h1>About Namma Nildana</h1>
-      <p>This page contains details about the Namma Nildana bus stop survey project. You can update this information later as the project evolves.</p>
-    </div>
+  <div class="three-column-layout">
+    <!-- Left Sidebar -->
+    <aside class="sidebar sidebar-left">
+      <div class="sidebar-content">
+        <h3>Profile</h3>
+        <p><strong>Project:</strong> Namma Nildana</p>
+        <p><strong>Location:</strong> Sarjapur Road</p>
+        <p><strong>Focus:</strong> Bus Stop Accessibility</p>
+        <hr style="margin: 16px 0; border: none; border-top: 1px solid #ddd;">
+        <h4>Contact</h4>
+        <p><a href="#contact">Get in Touch</a></p>
+        <p><a href="places.csv" download>Download Data</a></p>
+      </div>
+    </aside>
 
-    <div class="content">
-      <section>
-        <h2>Project Overview</h2>
-        <p>Namma Nildana is a local accessibility survey for bus stops along the Sarjapur Road corridor. The goal is to identify conditions of existing stops, map missing stops, and note accessibility, signage, and cleanliness.</p>
-      </section>
+    <!-- Center Content -->
+    <main class="main-content">
+      <header class="site-header">
+        <div class="site-title">
+          <h1 style="font-style: italic;">Namma<br>Nildana</h1>
+          <p class="site-tagline">Bus stop accessibility survey for the Sarjapur Road corridor</p>
+        </div>
+        <nav class="top-nav">
+          <a href="index.html" class="active">About</a>
+          <a href="map.html">Map</a>
+          <a href="#overview">Overview</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-      <section>
-        <h2>Purpose</h2>
-        <p>This project aims to make bus stop data easier to visualize and improve decision-making for city planners, commuters, and accessibility advocates.</p>
-      </section>
+      <div class="content-wrapper">
+        <!-- Logo Section -->
+        <section class="logo-section">
+          <img src="bus_stop 2.png" alt="Namma Nildana Logo" class="project-logo" />
+        </section>
 
-      <section>
-        <h2>How to Use</h2>
-        <ul>
-          <li>Use the top menu link to open the map.</li>
-          <li>Use the sidebar search to filter stops.</li>
-          <li>Click markers or list items to see stop details.</li>
+        <!-- Project Overview -->
+        <section id="overview" class="content-section">
+          <h2>Project Overview</h2>
+          <p>Namma Nildana is a community-driven accessibility survey documenting the conditions of bus stops along the Sarjapur Road corridor. Through detailed observation and data collection, we identify existing infrastructure, map missing stops, and assess accessibility features to improve transit equity.</p>
+        </section>
+
+        <!-- Purpose -->
+        <section class="content-section">
+          <h2>Purpose</h2>
+          <p>Our goal is to create a comprehensive, visual database of bus stop conditions that empowers city planners, transit advocates, and commuters to make informed decisions about urban accessibility. By combining field research with interactive mapping, we make transit infrastructure data accessible to everyone.</p>
+          
+          <h3>Key Objectives</h3>
+          <ul>
+            <li>Document existing bus stop conditions</li>
+            <li>Identify gaps in transit infrastructure</li>
+            <li>Evaluate accessibility and safety features</li>
+            <li>Support evidence-based urban planning</li>
+          </ul>
+        </section>
+
+        <!-- How to Use -->
+        <section class="content-section">
+          <h2>How to Use This Site</h2>
+          <ol>
+            <li><strong>Explore the Map:</strong> Click the Map link to view all surveyed bus stops on an interactive map.</li>
+            <li><strong>Search Locations:</strong> Use the sidebar search to filter stops by name or accessibility features.</li>
+            <li><strong>View Details:</strong> Click any marker or list item to see detailed information about that stop.</li>
+            <li><strong>Download Data:</strong> Access the raw survey data in CSV or JSON format for your own analysis.</li>
+          </ol>
+        </section>
+
+        <!-- Data Source -->
+        <section id="data" class="content-section">
+          <h2>Data & Resources</h2>
+          <p>Our survey data is publicly available for download:</p>
+          <ul>
+            <li><a href="places.csv" download>Download as CSV</a></li>
+            <li><a href="places.json" download>Download as JSON</a></li>
+          </ul>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="content-section">
+          <h2>Get Involved</h2>
+          <p>Have feedback about a bus stop? Want to contribute to the survey? We'd love to hear from you.</p>
+          <p>For questions or suggestions, please reach out through our contact channels.</p>
+        </section>
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar sidebar-right">
+      <div class="sidebar-content">
+        <h3>Details</h3>
+        <p><strong>Survey Status:</strong> Ongoing</p>
+        <p><strong>Last Updated:</strong> 2026</p>
+        <p><strong>Total Stops:</strong> 16+</p>
+        <hr style="margin: 16px 0; border: none; border-top: 1px solid #ddd;">
+        <h4>Quick Links</h4>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="map.html">View Map</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#data">Data</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
         </ul>
       </section>
       <section id="data-source">
