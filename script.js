@@ -28,36 +28,10 @@ async function initApp() {
     // Map
     const map = L.map('map').setView([12.895, 77.74], 13);
 
-    const tileOptions = {
-      carto: {
-        url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-        attribution: '&copy; OpenStreetMap contributors &amp; CARTO'
-      },
-      'stamen-toner': {
-        url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
-        attribution: 'Map tiles by Stamen Design, CC BY 3.0 — Map data © OpenStreetMap contributors'
-      }
-    };
-
-    let currentTileLayer;
-    const tileSelect = document.getElementById('mapStyle');
-    if (!tileSelect) throw new Error('Map style selector missing');
-
-    function setTileLayer(key) {
-      if (currentTileLayer) {
-        map.removeLayer(currentTileLayer);
-      }
-      currentTileLayer = L.tileLayer(tileOptions[key].url, {
-        attribution: tileOptions[key].attribution,
-        maxZoom: 19
-      }).addTo(map);
-    }
-
-    setTileLayer(tileSelect.value);
-    tileSelect.addEventListener('change', e => setTileLayer(e.target.value));
-    document.getElementById('aboutBtn').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors &amp; CARTO',
+      maxZoom: 19
+    }).addTo(map);
 
     // Custom markers
     function makeIcon(isExisting) {
