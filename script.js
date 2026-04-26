@@ -34,8 +34,8 @@ async function initApp() {
     }).addTo(map);
 
     // Custom markers
-    function makeIcon(isExisting) {
-      const iconUrl = isExisting ? 'green_marker.png' : 'red_marker.png';
+    function makeIcon(hasShelter) {
+      const iconUrl = hasShelter ? 'green_marker.png' : 'red_marker.png';
       return L.icon({
         iconUrl: iconUrl,
         iconSize: [15, 15],
@@ -43,15 +43,15 @@ async function initApp() {
         popupAnchor: [0, -11]
       });
     }
-    const iconExisting = makeIcon(true);
-    const iconNone = makeIcon(false);
+    const iconShelter = makeIcon(true);
+    const iconNoShelter = makeIcon(false);
 
     const markers = [];
 
     mapped.forEach(place => {
-      const isExisting = place.description.status === 'existing bus stop';
+      const hasShelter = place.description.status && place.description.status.toLowerCase().includes('shelter exists');
       const marker = L.marker([place.latitude, place.longitude], {
-        icon: isExisting ? iconExisting : iconNone
+        icon: hasShelter ? iconShelter : iconNoShelter
       }).addTo(map);
 
       marker.on('click', () => showDescription(place));
@@ -85,18 +85,18 @@ async function initApp() {
         li.className = 'place-item' + (place.latitude == null ? ' no-coords' : '');
         li.dataset.idx = idx;
 
-        const isExisting = place.description.status === 'existing bus stop';
+        const hasShelter = place.description.status && place.description.status.toLowerCase().includes('shelter exists');
         const hasCoords = place.latitude != null && place.longitude != null;
 
         let dotClass = 'place-dot';
         if (!hasCoords) dotClass += ' no-coords';
-        else if (!isExisting) dotClass += ' no-bus-stop';
+        else if (!hasShelter) dotClass += ' no-bus-stop';
 
         let dotHtml = '';
         if (!hasCoords) {
           dotHtml = '<div class="' + dotClass + '"></div>';
         } else {
-          const imgSrc = isExisting ? 'green_marker.png' : 'red_marker.png';
+          const imgSrc = hasShelter ? 'green_marker.png' : 'red_marker.png';
           dotHtml = '<img src="' + imgSrc + '" style="width:10px;height:10px;" alt="">';
         }
 
