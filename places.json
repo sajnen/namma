@@ -4,20 +4,20 @@
     "latitude": 12.8608847521621,
     "longitude": 77.78325394165,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "No information",
-        "camera_surveillance": "No",
-        "signage": "Inadequate signage",
+        "ground_quality": "No information",
+        "security_cameras": "No",
+        "signs_and_info": "Not enough signs",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Can be improved, garbage lying around and near bus stop, general dust, tiles are broken"
+      "cleanliness": "Can be improved; garbage lying around near the bus stop, general dust, and tiles are broken."
     }
   },
   {
@@ -25,21 +25,20 @@
     "latitude": 12.8621580536302,
     "longitude": 77.7718955985368,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well maintained",
-        "camera_surveillance": "Yes",
-        "signage": "No information",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "Yes",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "access_blocked": "Accessibility into bus stop blocked by vendors/cars etc",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No (blocked by vendors/cars)",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "fairly clean, not littered. However, very dusty"
+      "cleanliness": "Fairly clean, not littered. However, very dusty."
     }
   },
   {
@@ -47,21 +46,21 @@
     "latitude": 12.8677947517579,
     "longitude": 77.7669563144035,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "No",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "No",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "Yes, but no designated ramp",
+        "can_a_wheelchair_access_the_bus_stop": "Yes, but no designated ramp",
         "space_for_wheelchair_parking": "Yes, but can be improved",
-        "tactile_pathway": "No"
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Very poorly maintained due to disuse"
+      "cleanliness": "Very poorly maintained due to disuse."
     }
   },
   {
@@ -69,7 +68,7 @@
     "latitude": 12.8724995252241,
     "longitude": 77.7663024155139,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -80,20 +79,20 @@
     "latitude": 12.8794926615078,
     "longitude": 77.7615610462864,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Breakage, obstruction",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Breakage and obstruction",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Very dusty and obstruction in terms of rocks/mud in and around the bus stop."
+      "cleanliness": "Very dusty; obstructions like rocks and mud in and around the bus stop."
     }
   },
   {
@@ -101,21 +100,20 @@
     "latitude": 12.8817237096177,
     "longitude": 77.7569002417885,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes, but can be improved",
-        "flooring": "Breakage, obstruction",
-        "camera_surveillance": "No",
-        "signage": "Inadequate signage",
+        "ground_quality": "Breakage and obstruction",
+        "security_cameras": "No",
+        "signs_and_info": "Not enough signs",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "access_blocked": "Accessibility into bus stop blocked by vendors/cars etc",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No (blocked by vendors/cars)",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Bus stop itself is fairly maintained but is surrounded by debris and vendors and parked vehicles making it hard to access."
+      "cleanliness": "Bus stop itself is fairly maintained but is surrounded by debris, vendors, and parked vehicles making it hard to access."
     }
   },
   {
@@ -123,7 +121,7 @@
     "latitude": 12.8796880851133,
     "longitude": 77.7537429870165,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -134,7 +132,7 @@
     "latitude": 12.8837258694333,
     "longitude": 77.7522927757382,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -145,21 +143,20 @@
     "latitude": 12.8875457607502,
     "longitude": 77.7379668155307,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
-        "seating": "Yes but can be improved",
-        "flooring": "No",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "seating": "Yes, but can be improved",
+        "ground_quality": "No",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "access_blocked": "Accessibility into bus stop blocked by vendors/cars etc",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No (blocked by vendors/cars)",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "The bus stop is practically non functional because of how dirty it is, people stand outside the bus stop. It is filled with debris and vendors have set up storage within the stop."
+      "cleanliness": "Practically non-functional due to filth. It is filled with debris and vendors have set up storage within the stop."
     }
   },
   {
@@ -167,21 +164,20 @@
     "latitude": 12.8923176064902,
     "longitude": 77.728506542913,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "No information",
-        "roof": "Yes but can be improved",
-        "continuous_pathway": "No information"
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
+        "roof": "Yes, but can be improved",
+        "is_there_a_continuous_sidewalk": "No information"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "access_blocked": "Accessibility into bus stop blocked by vendors/cars etc",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No (blocked by vendors/cars)",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Bus stop is well maintained and clean but surroundings is not"
+      "cleanliness": "Bus stop is well-maintained and clean, but the surroundings are not."
     }
   },
   {
@@ -189,20 +185,20 @@
     "latitude": 12.8993331250136,
     "longitude": 77.7126327750527,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "Signboard",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "Signboard",
         "roof": "Yes",
-        "continuous_pathway": "Yes"
+        "is_there_a_continuous_sidewalk": "Yes"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Very well maintained and clean."
+      "cleanliness": "Very well-maintained and clean."
     }
   },
   {
@@ -210,20 +206,20 @@
     "latitude": 12.9034751003314,
     "longitude": 77.7039266303969,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "Yes"
+        "is_there_a_continuous_sidewalk": "Yes"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Slightly littered, and dusty."
+      "cleanliness": "Slightly littered and dusty."
     }
   },
   {
@@ -231,21 +227,20 @@
     "latitude": 12.9072064670436,
     "longitude": 77.6953856915663,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes, but can be improved",
-        "continuous_pathway": "Yes"
+        "is_there_a_continuous_sidewalk": "Yes"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "access_blocked": "Accessibility into bus stop blocked by vendors/cars etc",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No (blocked by vendors/cars)",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Dusty, but not littered"
+      "cleanliness": "Dusty, but not littered."
     }
   },
   {
@@ -253,20 +248,20 @@
     "latitude": 12.9108360518034,
     "longitude": 77.6839888840508,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Wellmaintained",
-        "camera_surveillance": "No",
-        "signage": "Signboard",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "Signboard",
         "roof": "Yes",
-        "continuous_pathway": "Yes"
+        "is_there_a_continuous_sidewalk": "Yes"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Clean, not very dusty"
+      "cleanliness": "Clean, not very dusty."
     }
   },
   {
@@ -274,21 +269,21 @@
     "latitude": 12.9142791928381,
     "longitude": 77.6773413772272,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Breakage, obstruction",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Breakage and obstruction",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "Yes, but can be improved"
+        "is_there_a_continuous_sidewalk": "Yes, but can be improved"
       },
       "accessibility": {
-        "wheelchair_entryway": "Broken",
+        "can_a_wheelchair_access_the_bus_stop": "Broken",
         "space_for_wheelchair_parking": "No",
-        "tactile_pathway": "Yes but can be improved"
+        "are_there_textured_paths_for_the_visually_impaired": "Yes, but can be improved"
       },
-      "cleanliness": "Very dusty otherwise maintained"
+      "cleanliness": "Very dusty, otherwise maintained."
     }
   },
   {
@@ -296,20 +291,20 @@
     "latitude": 12.9188752023854,
     "longitude": 77.6693375351398,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Breakage, obstruction",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Breakage and obstruction",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "Yes, but can be improved"
+        "is_there_a_continuous_sidewalk": "Yes, but can be improved"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Clean, no litter, not dusty"
+      "cleanliness": "Clean, no litter, not dusty."
     }
   },
   {
@@ -317,7 +312,7 @@
     "latitude": 12.9206323985912,
     "longitude": 77.66499503106,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -328,20 +323,20 @@
     "latitude": 12.9043099764847,
     "longitude": 77.7028699102322,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Wellmaintained",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "Yes"
+        "is_there_a_continuous_sidewalk": "Yes"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Clean mostly, littered in the back"
+      "cleanliness": "Clean mostly, littered in the back."
     }
   },
   {
@@ -349,7 +344,7 @@
     "latitude": 12.8611805049297,
     "longitude": 77.783074845587,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -360,7 +355,7 @@
     "latitude": 12.8621675327047,
     "longitude": 77.7721530945125,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -371,20 +366,20 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "No information",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "No information",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Broken",
-        "continuous_pathway": "No information"
+        "is_there_a_continuous_sidewalk": "No information"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Non-existent practically. In high disuse so the roof and tiling is all broken."
+      "cleanliness": "Non-existent practically. In high disuse, so the roof and tiling are all broken."
     }
   },
   {
@@ -392,20 +387,20 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes, but can be improved",
-        "flooring": "No",
-        "camera_surveillance": "No",
-        "signage": "No",
+        "ground_quality": "No",
+        "security_cameras": "No",
+        "signs_and_info": "No",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "In disuse, so very dusty and not well-maintained at all"
+      "cleanliness": "In disuse, so very dusty and not well-maintained at all."
     }
   },
   {
@@ -413,7 +408,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -424,7 +419,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -435,7 +430,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -446,7 +441,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -457,7 +452,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -468,20 +463,20 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "Inadaquate signage",
-        "roof": "Yes but can be improved",
-        "continuous_pathway": "No"
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "Inadequate signage",
+        "roof": "Yes, but can be improved",
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Generally well maintained and clean"
+      "cleanliness": "Generally well-maintained and clean."
     }
   },
   {
@@ -489,20 +484,20 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Broken",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "No"
+        "is_there_a_continuous_sidewalk": "No"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Very dusty and garbage is just lying around"
+      "cleanliness": "Very dusty and garbage is just lying around."
     }
   },
   {
@@ -521,19 +516,18 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Broken",
-        "flooring": "No built floor",
-        "camera_surveillance": "No",
-        "signage": "Digital",
-        "roof": "Yes but can be improved",
-        "continuous_pathway": "Yes but can be improved"
+        "ground_quality": "No built floor",
+        "security_cameras": "No",
+        "signs_and_info": "Digital",
+        "roof": "Yes, but can be improved",
+        "is_there_a_continuous_sidewalk": "Yes, but can be improved"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "access_blocked": "Accessibility into bus stop blocked by vendors/cars etc",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No (blocked by vendors/cars)",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
       "cleanliness": "No information"
     }
@@ -543,18 +537,18 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "No built floor",
-        "camera_surveillance": "No",
-        "signage": "No information",
+        "ground_quality": "No built floor",
+        "security_cameras": "No",
+        "signs_and_info": "No information",
         "roof": "Yes",
-        "continuous_pathway": "Yes, but can be improved"
+        "is_there_a_continuous_sidewalk": "Yes, but can be improved"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
       "cleanliness": "Littered"
     }
@@ -564,7 +558,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -575,7 +569,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -586,7 +580,7 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "no existing bus stop",
+      "status": "No Existing bus stop shelter",
       "facilities": {},
       "accessibility": {},
       "cleanliness": ""
@@ -597,20 +591,20 @@
     "latitude": null,
     "longitude": null,
     "description": {
-      "status": "existing bus stop",
+      "status": "Bus stop shelter exists",
       "facilities": {
         "seating": "Yes",
-        "flooring": "Well-maintained",
-        "camera_surveillance": "No",
-        "signage": "Signboard",
+        "ground_quality": "Well-maintained",
+        "security_cameras": "No",
+        "signs_and_info": "Signboard",
         "roof": "Yes",
-        "continuous_pathway": "Yes"
+        "is_there_a_continuous_sidewalk": "Yes"
       },
       "accessibility": {
-        "wheelchair_entryway": "No",
-        "tactile_pathway": "No i"
+        "can_a_wheelchair_access_the_bus_stop": "No",
+        "are_there_textured_paths_for_the_visually_impaired": "No"
       },
-      "cleanliness": "Overall clean"
+      "cleanliness": "Overall clean."
     }
   }
 ]
