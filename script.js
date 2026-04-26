@@ -196,8 +196,106 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// IMPORTANT: Replace this with your Google Apps Script deployment URL
+// Instructions: See GOOGLE_SHEETS_SETUP.md
+const GOOGLE_SHEETS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+// Survey Modal Handler
+function initSurveyModal() {
+  const surveyModal = document.getElementById('surveyModal');
+  const surveyForm = document.getElementById('surveyForm');
+  const surveyCloseBtn = document.getElementById('surveyClosed');
+  const surveyCancelBtn = document.getElementById('surveyCancelBtn');
+  const surveyOverlay = document.querySelector('.survey-overlay');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMessage = document.getElementById('formMessage');
+
+  // Open Survey Button
+  const openSurveyBtn = document.getElementById('openSurveyBtn');
+  if (openSurveyBtn) {
+    openSurveyBtn.addEventListener('click', () => {
+      surveyModal.classList.add('active');
+      formMessage.style.display = 'none';
+    });
+  }
+
+  // Close Survey Modal
+  const closeSurvey = () => {
+    surveyModal.classList.remove('active');
+    surveyForm.reset();
+    formMessage.style.display = 'none';
+  };
+
+  surveyCloseBtn.addEventListener('click', closeSurvey);
+  surveyCancelBtn.addEventListener('click', closeSurvey);
+  surveyOverlay.addEventListener('click', closeSurvey);
+
+  // Handle Form Submission (Google Sheets)
+  surveyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('surveyEmail').value.trim();
+    const phone = document.getElementById('surveyPhone').value.trim();
+    const feedback = document.getElementById('surveyFeedback').value.trim();
+
+    // Validation
+    if (!email || !feedback) {
+      showMessage('Please fill in all required fields (email and feedback).', 'error');
+      return;
+    }
+
+    // Check if Google Sheets URL is configured
+    if (GOOGLE_SHEETS_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      showMessage('Survey is not configured yet. Please add Google Apps Script URL.', 'error');
+      return;
+    }
+
+    // Disable submit button to prevent double submission
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+      const response = await fetch(GOOGLE_SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({
+          email: email,
+          phone: phone || '',
+          feedback: feedback,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      // Success message (no-cors mode won't give us response, but we assume success)
+      showMessage('Thank you for your feedback! Your response has been recorded.', 'success');
+      surveyForm.reset();
+
+      // Close after 2 seconds
+      setTimeout(closeSurvey, 2000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      showMessage('Error submitting feedback. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Feedback';
+    }
+  });
+}
+
+// Show form message
+function showMessage(message, type) {
+  const formMessage = document.getElementById('formMessage');
+  formMessage.textContent = message;
+  formMessage.className = `form-message ${type}`;
+  formMessage.style.display = 'block';
+}
+
 if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', initApp);
+  window.addEventListener('DOMContentLoaded', () => {
+    initApp();
+    initSurveyModal();
+  });
 } else {
   initApp();
+  initSurveyModal();
 }

@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "project": "Namma Nildana",
+    "description": "Bus Stop Accessibility Survey",
+    "created": "2026-04-22",
+    "version": "1.0"
+  },
+  "responses": [
+    {
+      "id": 1,
+      "email": "example@email.com",
+      "phone": "+91 98765 43210",
+      "feedback": "The accessibility at Sarjapur Police Station stop needs improvement. Pathways are unclear.",
+      "timestamp": "2026-04-22T10:30:00Z",
+      "busStopVisited": null
+    }
+  ],
+  "summary": {
+    "totalResponses": 1,
+    "averageFeedbackLength": 78
+  }
+}
