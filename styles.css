@@ -905,17 +905,16 @@ body.map-page .site-header {
 
 .field {
   display: grid;
-  grid-template-columns: 160px 1fr;
-  margin-bottom: 6px;
-  line-height: 1.4;
+  grid-template-columns: 180px 1fr;
+  margin-bottom: 8px;
+  line-height: 1.5;
 }
 .field-label {
   font-weight: bold;
-  color: #555;
-  word-wrap: break-word;
+  color: #444;
 }
 .field-value {
-  color: #333;
+  color: #222;
 }
 
 /* Mobile responsive for map page */

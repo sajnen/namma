@@ -137,7 +137,13 @@ function showDescription(place) {
       ? place.latitude.toFixed(6) + ', ' + place.longitude.toFixed(6)
       : 'Coordinates not available';
 
-  document.getElementById('descBody').innerHTML = renderDescription(place.description);
+  // Ensure red markers display only their status
+  if (place.description.status === 'no existing bus stop') {
+    document.getElementById('descBody').innerHTML = '<span class="status-badge none">No Existing Bus Stop Shelter</span>';
+  } else {
+    document.getElementById('descBody').innerHTML = renderDescription(place.description);
+  }
+
   panel.classList.add('visible');
 
   // Highlight sidebar
@@ -155,39 +161,44 @@ function showDescription(place) {
 function renderDescription(desc) {
   if (!desc || desc.status === 'unknown') return '<em>No description available</em>';
 
-  const formatLabel = key => key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const status = desc.status.toLowerCase();
 
-  let html = '';
-  if (desc.status === 'no existing bus stop') {
-    html += '<span class="status-badge none">No Existing Bus Stop</span>';
-  } else {
-    html += '<span class="status-badge existing">Existing Bus Stop</span>';
+  if (status === 'no existing bus stop') {
+    return '<span class="status-badge none">No Existing Bus Stop Shelter</span>';
   }
 
-  html += '<div class="section-title">Facilities</div>';
-  if (Object.keys(desc.facilities).length > 0) {
-    for (const [key, val] of Object.entries(desc.facilities)) {
-      html += '<div class="field"><span class="field-label">' + escapeHtml(formatLabel(key)) +
-              ':</span><span class="field-value">' + escapeHtml(val || 'Not recorded') + '</span></div>';
+  if (status === 'bus stop shelter exists') {
+    const formatLabel = key => key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+    let html = '<span class="status-badge existing">Bus Stop Shelter Exists</span>';
+
+    html += '<div class="section-title">Facilities</div>';
+    if (Object.keys(desc.facilities).length > 0) {
+      for (const [key, val] of Object.entries(desc.facilities)) {
+        html += '<div class="field"><span class="field-label">' + escapeHtml(formatLabel(key)) +
+                ':</span><span class="field-value">' + escapeHtml(val || 'Not recorded') + '</span></div>';
+      }
+    } else {
+      html += '<div class="field"><span class="field-value">No facility information recorded.</span></div>';
     }
-  } else {
-    html += '<div class="field"><span class="field-value">No facility information recorded.</span></div>';
-  }
 
-  html += '<div class="section-title">Accessibility</div>';
-  if (Object.keys(desc.accessibility).length > 0) {
-    for (const [key, val] of Object.entries(desc.accessibility)) {
-      html += '<div class="field"><span class="field-label">' + escapeHtml(formatLabel(key)) +
-              ':</span><span class="field-value">' + escapeHtml(val || 'Not recorded') + '</span></div>';
+    html += '<div class="section-title">Accessibility</div>';
+    if (Object.keys(desc.accessibility).length > 0) {
+      for (const [key, val] of Object.entries(desc.accessibility)) {
+        html += '<div class="field"><span class="field-label">' + escapeHtml(formatLabel(key)) +
+                ':</span><span class="field-value">' + escapeHtml(val || 'Not recorded') + '</span></div>';
+      }
+    } else {
+      html += '<div class="field"><span class="field-value">No accessibility details recorded.</span></div>';
     }
-  } else {
-    html += '<div class="field"><span class="field-value">No accessibility details recorded.</span></div>';
+
+    html += '<div class="section-title">Cleanliness</div>';
+    html += '<div class="field"><span class="field-value">' + escapeHtml(desc.cleanliness || 'No cleanliness notes recorded.') + '</span></div>';
+
+    return html;
   }
 
-  html += '<div class="section-title">Cleanliness</div>';
-  html += '<div class="field"><span class="field-value">' + escapeHtml(desc.cleanliness || 'No cleanliness notes recorded.') + '</span></div>';
-
-  return html;
+  return '<em>Status not recognized</em>';
 }
 
 function escapeHtml(text) {
