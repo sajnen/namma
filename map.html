@@ -20,7 +20,8 @@
     <span></span>
   </button>
   <nav id="topNav" class="top-nav">
-    <button class="nav-close">&times;</button>    <a href="map.html">Home</a>    <a href="index.html">About</a>
+    <button class="nav-close">&times;</button>
+    <a href="index.html">Home</a>
     <a href="#map" class="active">Map</a>
     <a href="index.html#contact">Contact</a>
   </nav>
@@ -30,9 +31,11 @@
   <div class="header">
     <div class="map-label">
       <strong>Map view</strong>
-    </div>    <button id="openSurveyBtn" class="survey-button">Feedback</button>    <button id="sidebarToggle" class="sidebar-toggle" aria-expanded="true" aria-label="Toggle sidebar">☰</button>
+    </div>
+    <a href="index.html#contact" class="survey-button">Feedback</a>
+    <button id="sidebarToggle" class="sidebar-toggle" aria-expanded="true" aria-label="Toggle sidebar">☰</button>
     <div class="stats">
-      <div><div class="stat-num" id="stat-total">â€“</div> Total Stops</div>
+      <div><div class="stat-num" id="stat-total">–</div> Total Stops</div>
     </div>
   </div>
 
@@ -68,56 +71,7 @@
 </div>
 </div>
 
-<!-- Survey Modal -->
-<div id="surveyModal" class="survey-modal">
-  <div class="survey-overlay"></div>
-  <div class="survey-container">
-    <div class="survey-header">
-      <h2>Feedback Survey</h2>
-      <button class="survey-close" id="surveyClosed">&times;</button>
-    </div>
-    <form id="surveyForm" class="survey-form">
-      <div id="formMessage" class="form-message"></div>
-      
-      <div class="form-group">
-        <label for="surveyEmail">Email <span class="required">*</span></label>
-        <input 
-          type="email" 
-          id="surveyEmail" 
-          name="email" 
-          placeholder="your.email@example.com" 
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="surveyPhone">Phone Number (Optional)</label>
-        <input 
-          type="tel" 
-          id="surveyPhone" 
-          name="phone" 
-          placeholder="+91 98765 43210"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="surveyFeedback">Your Feedback <span class="required">*</span></label>
-        <textarea 
-          id="surveyFeedback" 
-          name="feedback" 
-          placeholder="Share your thoughts on bus stop accessibility..." 
-          rows="5"
-          required
-        ></textarea>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-submit" id="submitBtn">Submit Feedback</button>
-        <button type="button" class="btn-cancel" id="surveyCancelBtn">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>
+<!-- Survey Modal (moved to home page) -->
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

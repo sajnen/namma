@@ -13,6 +13,14 @@
       <div class="sidebar-content">
         <button class="sidebar-close" aria-label="Close sidebar">&times;</button>
         <a class="sidebar-home" href="index.html">Home</a>
+        
+        <!-- About Us Section -->
+        <div class="about-us">
+          <h3>About Us</h3>
+          <p>Namma Nildana is a community-driven initiative focused on improving bus stop accessibility along the Sarjapur Road corridor. We believe that accessible public transportation is a right, not a privilege.</p>
+        </div>
+        
+        <hr style="margin: 16px 0; border: none; border-top: 1px solid #ddd;">
         <h3>Profile</h3>
         <p><strong>Project:</strong> Namma Nildana</p>
         <p><strong>Location:</strong> Sarjapur Road</p>
@@ -65,37 +73,12 @@
           </ul>
         </section>
 
-        <!-- Contact -->
+        <!-- Contact / Get Involved -->
         <section id="contact" class="content-section">
           <h2>Get Involved</h2>
           <p>Have feedback about a bus stop? Want to contribute to the survey? We'd love to hear from you.</p>
           <p>For questions or suggestions, please reach out through our contact channels.</p>
-          <button id="feedbackBtn" class="feedback-button">Share Your Feedback</button>
         </section>
-
-        <!-- Feedback Modal -->
-        <div id="feedbackModal" class="modal">
-          <div class="modal-content">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <h2>Share Your Feedback</h2>
-            <p>Help us improve by sharing your thoughts and observations about bus stops in this area.</p>
-            <form id="feedbackForm" action="https://formspree.io/f/xyzqwvab" method="POST" class="feedback-form">
-              <div class="form-group">
-                <label for="email">Email Address <span class="required">*</span></label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com">
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone Number (Optional)</label>
-                <input type="tel" id="phone" name="phone" placeholder="+91 XXXXXXXXXX">
-              </div>
-              <div class="form-group">
-                <label for="feedback">Your Feedback <span class="required">*</span></label>
-                <textarea id="feedback" name="message" rows="5" required placeholder="Share your observations, suggestions, or concerns about bus stops..."></textarea>
-              </div>
-              <button type="submit" class="submit-button">Send Feedback</button>
-            </form>
-          </div>
-        </div>
       </div>
     </main>
 
@@ -116,6 +99,57 @@
         </ul>
       </div>
     </aside>
+  </div>
+
+  <!-- Survey Modal -->
+  <div id="surveyModal" class="survey-modal">
+    <div class="survey-overlay"></div>
+    <div class="survey-container">
+      <div class="survey-header">
+        <h2>Feedback Survey</h2>
+        <button class="survey-close" id="surveyClosed">&times;</button>
+      </div>
+      <form id="surveyForm" class="survey-form">
+        <div id="formMessage" class="form-message"></div>
+        
+        <div class="form-group">
+          <label for="surveyEmail">Email <span class="required">*</span></label>
+          <input 
+            type="email" 
+            id="surveyEmail" 
+            name="email" 
+            placeholder="your.email@example.com" 
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="surveyPhone">Phone Number (Optional)</label>
+          <input 
+            type="tel" 
+            id="surveyPhone" 
+            name="phone" 
+            placeholder="+91 98765 43210"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="surveyFeedback">Your Feedback <span class="required">*</span></label>
+          <textarea 
+            id="surveyFeedback" 
+            name="feedback" 
+            placeholder="Share your thoughts on bus stop accessibility..." 
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submitBtn">Submit Feedback</button>
+          <button type="button" class="btn-cancel" id="surveyCancelBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -184,37 +218,6 @@
           }
         })
         .catch(err => console.warn('Could not load places.json:', err));
-
-      // Feedback modal
-      const feedbackBtn = document.getElementById('feedbackBtn');
-      const feedbackModal = document.getElementById('feedbackModal');
-      const modalClose = document.getElementById('modalClose');
-      const feedbackForm = document.getElementById('feedbackForm');
-      
-      if (feedbackBtn && feedbackModal && modalClose) {
-        feedbackBtn.addEventListener('click', () => {
-          feedbackModal.classList.add('visible');
-        });
-        modalClose.addEventListener('click', () => {
-          feedbackModal.classList.remove('visible');
-        });
-        window.addEventListener('click', (e) => {
-          if (e.target === feedbackModal) {
-            feedbackModal.classList.remove('visible');
-          }
-        });
-      }
-
-      if (feedbackForm) {
-        feedbackForm.addEventListener('submit', (e) => {
-          // Formspree will handle submission, but we can add success feedback
-          setTimeout(() => {
-            feedbackModal.classList.remove('visible');
-            alert('Thank you for your feedback!');
-            feedbackForm.reset();
-          }, 500);
-        });
-      }
     });
   </script>
 </body>

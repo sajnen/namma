@@ -381,6 +381,12 @@ body.map-page {
   background: #f5f5f5;
 }
 
+body.map-page .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 .header {
   background: #fff;
   color: #222;
