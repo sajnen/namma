@@ -138,7 +138,7 @@ function showDescription(place) {
       : 'Coordinates not available';
 
   // Ensure red markers display only their status
-  if (place.description.status === 'no existing bus stop') {
+  if (place.description.status === 'No Existing Bus Stop Shelter') {
     document.getElementById('descBody').innerHTML = '<span class="status-badge none">No Existing Bus Stop Shelter</span>';
   } else {
     document.getElementById('descBody').innerHTML = renderDescription(place.description);
@@ -163,7 +163,7 @@ function renderDescription(desc) {
 
   const status = desc.status.toLowerCase();
 
-  if (status === 'no existing bus stop') {
+  if (status === 'no existing bus stop shelter') {
     return '<span class="status-badge none">No Existing Bus Stop Shelter</span>';
   }
 
