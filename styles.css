@@ -969,3 +969,18 @@ body.map-page .site-header {
     padding: 24px 18px;
   }
 }
+.cta-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #cfc396; /* A vibrant blue */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.cta-button:hover {
+  background-color: #bcaf7b;
+  transform: scale(1.05); /* Makes it "pop" slightly on hover */
+}
