@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Namma Nildana</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -43,9 +44,24 @@
       </header>
 
       <div class="content-wrapper">
-        <!-- Logo Section -->
-        <section class="logo-section">
-          <img src="bus_stop 3.png" alt="Namma Nildana Logo" class="project-logo" />
+        <!-- Map & Logo Block -->
+        <section class="map-logo-block">
+          <div class="map-logo-container">
+            <!-- Mini-Map Window -->
+            <div class="mini-map-wrapper">
+              <div class="mini-map-container" id="miniMap"></div>
+              <button class="mini-map-fullscreen" id="miniMapFullscreen" title="View full map" aria-label="Open full map">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Logo Section -->
+            <section class="logo-section">
+              <img src="bus_stop 3.png" alt="Namma Nildana Logo" class="project-logo" />
+            </section>
+          </div>
         </section>
 
         <!-- Project Overview -->
@@ -216,6 +232,90 @@
           }
         })
         .catch(err => console.warn('Could not load places.json:', err));
+    });
+  </script>
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Mini-Map Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const miniMapContainer = document.getElementById('miniMap');
+      const miniMapFullscreenBtn = document.getElementById('miniMapFullscreen');
+
+      if (miniMapContainer && window.L) {
+        try {
+          // Create mini-map instance
+          const miniMap = L.map('miniMap').setView([12.895, 77.74], 12);
+
+          // Add tile layer
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors &amp; CARTO',
+            maxZoom: 19
+          }).addTo(miniMap);
+
+          // Disable default link navigation on the map
+          miniMap.dragging.enable();
+          miniMap.touchZoom.enable();
+          miniMap.doubleClickZoom.enable();
+          miniMap.scrollWheelZoom.enable();
+
+          // Load and display markers
+          fetch('places.json')
+            .then(response => response.json())
+            .catch(err => {
+              console.warn('Could not load places.json:', err);
+              return [];
+            })
+            .then(places => {
+              if (!Array.isArray(places)) return;
+
+              const mapped = places.filter(p => p.latitude != null && p.longitude != null);
+
+              // Custom marker icons
+              function makeIcon(hasShelter) {
+                const iconUrl = hasShelter ? 'green_marker.png' : 'red_marker.png';
+                return L.icon({
+                  iconUrl: iconUrl,
+                  iconSize: [14, 14],
+                  iconAnchor: [7, 7],
+                  popupAnchor: [0, -7]
+                });
+              }
+
+              const iconShelter = makeIcon(true);
+              const iconNoShelter = makeIcon(false);
+
+              // Add markers
+              mapped.forEach(place => {
+                const hasShelter = place.description.status && 
+                                  place.description.status.toLowerCase().includes('shelter exists');
+                L.marker([place.latitude, place.longitude], {
+                  icon: hasShelter ? iconShelter : iconNoShelter
+                }).addTo(miniMap);
+              });
+
+              // Fit bounds
+              if (mapped.length > 0) {
+                const bounds = L.latLngBounds(mapped.map(p => [p.latitude, p.longitude]));
+                miniMap.fitBounds(bounds, { padding: [15, 15] });
+                setTimeout(() => miniMap.invalidateSize(), 250);
+              }
+            });
+        } catch (err) {
+          console.error('Error initializing mini-map:', err);
+        }
+      }
+
+      // Fullscreen button handler
+      if (miniMapFullscreenBtn) {
+        miniMapFullscreenBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.location.href = 'map.html';
+        });
+      }
     });
   </script>
 </body>
