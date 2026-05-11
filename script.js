@@ -118,12 +118,34 @@ async function initApp() {
       });
     }
 
-    renderList('');
-    document.getElementById('search').addEventListener('input', e => renderList(e.target.value));
+    function getSelectedPlaceIndexFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const raw = params.get('place');
+      if (!raw) return null;
 
-    // Description panel
+      const numeric = Number(raw);
+      if (!Number.isNaN(numeric) && Number.isInteger(numeric) && numeric >= 0 && numeric < places.length) {
+        return numeric;
+      }
+
+      const exactMatch = places.findIndex(p => p.place === raw);
+      return exactMatch >= 0 ? exactMatch : null;
+    }
+
+    renderList('');
     panel = document.getElementById('descPanel');
     document.getElementById('descClose').addEventListener('click', () => panel.classList.remove('visible'));
+
+    const selectedPlaceIndex = getSelectedPlaceIndexFromUrl();
+    if (selectedPlaceIndex != null && places[selectedPlaceIndex]) {
+      const selectedPlace = places[selectedPlaceIndex];
+      if (selectedPlace.latitude != null && selectedPlace.longitude != null) {
+        map.setView([selectedPlace.latitude, selectedPlace.longitude], 16, { animate: true });
+      }
+      showDescription(selectedPlace);
+    }
+
+    document.getElementById('search').addEventListener('input', e => renderList(e.target.value));
   } catch (err) {
     console.error('initApp error', err);
     document.body.insertAdjacentHTML('afterbegin', '<div style="padding:20px;background:#fee;color:#900;font-family:sans-serif;">Error initializing map: ' + err.message + '</div>');
