@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Namma Nildana</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
   <div class="three-column-layout">
@@ -12,8 +13,6 @@
     <aside class="sidebar sidebar-left">
       <div class="sidebar-content">
         <button class="sidebar-close" aria-label="Close sidebar">&times;</button>
-        <a class="sidebar-home" href="index.html">Home</a>
-        
       <div class="about-us">
   <div class="about-us">
   <h3>ABOUT US</h3>
@@ -45,7 +44,13 @@
       <div class="content-wrapper">
         <!-- Logo Section -->
         <section class="logo-section">
-          <img src="bus_stop 3.png" alt="Namma Nildana Logo" class="project-logo" />
+          <div class="brand-container">
+            <div id="miniMapContainer">
+              <a href="map.html#map" class="mini-map-fullscreen" aria-label="Go to full map">⛶</a>
+              <div id="miniMap"></div>
+            </div>
+            <img src="bus_stop 3.png" alt="Namma Nildana Logo" class="project-logo" />
+          </div>
         </section>
 
         <!-- Project Overview -->
@@ -65,12 +70,20 @@
         <section id="contact" class="content-section">
           <h2>Get Involved</h2>
           <p>Have feedback about a bus stop? Want to contribute to the survey? We'd love to hear from you.</p>
-          <p>To move forward with our campaign we need your inputs, let us know your thoughts</p>
-          <p>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTbRgvSVcwURU4TYRtjqkvulufIPJkO12maCVdzXJIdTX3pQ/viewform?usp=header" target="_blank" class="cta-button">
-    Share Your Bus Stop Experience
-  </a>
-</p>
+          <p>To move forward with our campaign we need your inputs, let us know your thoughts.</p>
+          <div id="surveyEmbedSection" class="embedded-survey">
+            <div class="embedded-survey-frame">
+              <button id="surveyFullscreenBtn" class="survey-fullscreen" aria-label="Fullscreen survey">⛶</button>
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSfTbRgvSVcwURU4TYRtjqkvulufIPJkO12maCVdzXJIdTX3pQ/viewform?embedded=true"
+                width="100%"
+                height="860"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+              >Loading…</iframe>
+            </div>
+          </div>
         </section>
       </div>
     </main>
@@ -150,8 +163,79 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      const miniMapEl = document.getElementById('miniMap');
+      if (miniMapEl && typeof L !== 'undefined') {
+        const miniMap = L.map(miniMapEl, {
+          zoomControl: true,
+          dragging: true,
+          scrollWheelZoom: true,
+          attributionControl: false,
+          doubleClickZoom: true,
+          boxZoom: true,
+          keyboard: true,
+          tap: true,
+          touchZoom: true
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors &amp; CARTO',
+          maxZoom: 19
+        }).addTo(miniMap);
+
+        const iconShelter = L.icon({
+          iconUrl: 'green_marker.png',
+          iconSize: [15, 15],
+          iconAnchor: [7, 15],
+          popupAnchor: [0, -11]
+        });
+        const iconNoShelter = L.icon({
+          iconUrl: 'red_marker.png',
+          iconSize: [15, 15],
+          iconAnchor: [7, 15],
+          popupAnchor: [0, -11]
+        });
+
+        fetch('places.json')
+          .then(response => response.json())
+          .then(data => {
+            const placesData = Array.isArray(data) ? data : [];
+            const bounds = [];
+
+            placesData.forEach((place, idx) => {
+              if (place.latitude == null || place.longitude == null) return;
+
+              const hasShelter = place.description && place.description.status && place.description.status.toLowerCase().includes('shelter exists');
+              const marker = L.marker([place.latitude, place.longitude], {
+                icon: hasShelter ? iconShelter : iconNoShelter
+              }).addTo(miniMap);
+
+              marker.on('click', () => {
+                window.location.href = 'map.html?place=' + idx + '#map';
+              });
+
+              bounds.push([place.latitude, place.longitude]);
+            });
+
+            if (bounds.length > 1) {
+              miniMap.fitBounds(bounds, { padding: [20, 20] });
+            } else if (bounds.length === 1) {
+              miniMap.setView(bounds[0], 15);
+            } else {
+              miniMap.setView([12.895, 77.74], 13);
+            }
+
+            miniMap.invalidateSize();
+          })
+          .catch(err => {
+            console.warn('Mini-map load failed:', err);
+            miniMap.setView([12.895, 77.74], 13);
+            miniMap.invalidateSize();
+          });
+      }
+
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -216,6 +300,22 @@
           }
         })
         .catch(err => console.warn('Could not load places.json:', err));
+
+      const surveyEmbedSection = document.getElementById('surveyEmbedSection');
+      const surveyFullscreenBtn = document.getElementById('surveyFullscreenBtn');
+      if (surveyFullscreenBtn && surveyEmbedSection) {
+        surveyFullscreenBtn.addEventListener('click', async () => {
+          if (surveyEmbedSection.requestFullscreen) {
+            await surveyEmbedSection.requestFullscreen();
+          } else if (surveyEmbedSection.webkitRequestFullscreen) {
+            surveyEmbedSection.webkitRequestFullscreen();
+          } else if (surveyEmbedSection.msRequestFullscreen) {
+            surveyEmbedSection.msRequestFullscreen();
+          } else {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSfTbRgvSVcwURU4TYRtjqkvulufIPJkO12maCVdzXJIdTX3pQ/viewform', '_blank');
+          }
+        });
+      }
     });
   </script>
 </body>
